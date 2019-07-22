@@ -9,7 +9,11 @@ const Index = () => (
           <a>About</a>
         </Link>
       </li>
-      <li>Content</li>
+      <li>
+        <Link href="/content/">
+          <a>Content</a>
+        </Link>
+      </li>
     </ul>
   </div>
 );
