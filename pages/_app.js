@@ -3,9 +3,11 @@ import App, { Container } from "next/app";
 import { PageTransition } from "next-page-transitions";
 import { Global, css } from "@emotion/core";
 import Loader from "components/Loader";
+import { Provider } from "react-redux";
+import withReduxStore from "../lib/with-redux-store";
 
 const TIMEOUT = 200;
-export default class MyApp extends App {
+class MyApp extends App {
   static async getInitialProps({ Component, router, ctx }) {
     let pageProps = {};
 
@@ -20,19 +22,21 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <Container>
-        <PageTransition
-          timeout={TIMEOUT}
-          classNames="page-transition"
-          loadingComponent={<Loader />}
-          loadingDelay={500}
-          loadingTimeout={{
-            enter: TIMEOUT,
-            exit: 0
-          }}
-          loadingClassNames="loading-indicator"
-        >
-          <Component {...pageProps} />
-        </PageTransition>
+        <Provider store={this.props.reduxStore}>
+          <PageTransition
+            timeout={TIMEOUT}
+            classNames="page-transition"
+            loadingComponent={<Loader />}
+            loadingDelay={500}
+            loadingTimeout={{
+              enter: TIMEOUT,
+              exit: 0
+            }}
+            loadingClassNames="loading-indicator"
+          >
+            <Component {...pageProps} />
+          </PageTransition>
+        </Provider>
         <Global
           style={css`
             .page-transition-enter {
@@ -68,3 +72,5 @@ export default class MyApp extends App {
     );
   }
 }
+
+export default withReduxStore(MyApp);

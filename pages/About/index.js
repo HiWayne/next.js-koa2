@@ -1,18 +1,40 @@
 import React from "react";
+import { connect } from "react-redux";
+import { mapStateToAboutProps as mapStateToProps } from "../../shared/store";
+import { mapDispatchToAboutProps as mapDispatchToProps } from "../../shared/store";
 
-const About = () => <p>This is About page</p>;
+const About = ({ text, changeText }) => {
+  let showText = "";
+  return (
+    <div>
+      <p>This is {text} page</p>
+      <input
+        onChange={e => {
+          showText = e.target.value;
+        }}
+      />
+      <div
+        onClick={() => {
+          changeText(showText);
+        }}
+      >
+        确认
+      </div>
+    </div>
+  );
+};
 
 About.getInitialProps = async () => {
-  console.log("进入");
   const delayLoad = new Promise(resolve => {
     setTimeout(() => {
       resolve();
-      console.log("延时");
-    }, 5000);
+    }, 3000);
   });
 
   await delayLoad;
-  console.log("结束");
 };
 
-export default About;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(About);
