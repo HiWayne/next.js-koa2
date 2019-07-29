@@ -1,0 +1,6 @@
+.execute {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background-color: rgb(177, 174, 174);
+}

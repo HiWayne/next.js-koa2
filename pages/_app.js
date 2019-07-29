@@ -34,7 +34,7 @@ class MyApp extends App {
             }}
             loadingClassNames="loading-indicator"
           >
-            <Component {...pageProps} />
+            <Component {...pageProps} key={this.props.path} />
           </PageTransition>
         </Provider>
         <Global

@@ -1,7 +1,7 @@
 const Koa = require("koa");
 const next = require("next");
 const KoaRouter = require("koa-router");
-const {parse} = require("url");
+const { parse } = require("url");
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 const dev = process.env.NODE_ENV !== "production";
@@ -15,7 +15,7 @@ app.prepare().then(() => {
   router.get("/*", async ctx => {
     const parsedUrl = parse(ctx.req.url, true);
     const { pathname, query } = parsedUrl;
-    let path = pathname.replace(/\/$/, "")
+    let path = pathname.replace(/\/$/, "");
     await app.render(ctx.req, ctx.res, path, query);
     ctx.respond = false;
   });

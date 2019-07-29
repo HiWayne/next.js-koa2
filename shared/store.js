@@ -41,7 +41,7 @@ const changeList = (index, value) => {
 };
 
 // reducers
-const aboutText = (state = "", action) => {
+const aboutText = (state = "about", action) => {
   switch (action.type) {
     case actionTypes.TEXT:
       return action.text;
@@ -49,14 +49,14 @@ const aboutText = (state = "", action) => {
       return state;
   }
 };
-const contentList = (state = [], action) => {
+const contentList = (state = [1, 2, 3], action) => {
   switch (action.type) {
     case actionTypes.ADDLIST:
       return [...state, action.value];
     case actionTypes.REMOVELIST:
-      return state.map((item, index) =>
-        index === action.index ? undefined : item
-      );
+      const result = [...state];
+      result.splice(action.index, 1);
+      return result;
     case actionTypes.CHANGELIST:
       return state.map((item, index) =>
         index === action.index ? action.value : item
